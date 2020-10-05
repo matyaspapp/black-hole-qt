@@ -10,10 +10,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    view/blackholeview.cpp
+    view/blackholeview.cpp \
+    model/blackholemodel.cpp
 
 HEADERS += \
-    view/blackholeview.h
+    view/blackholeview.h \
+    model/blackholemodel.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
