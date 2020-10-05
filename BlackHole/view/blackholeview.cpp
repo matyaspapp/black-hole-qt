@@ -6,6 +6,15 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     setWindowTitle("Black Hole");
     setFixedSize(sizeHint());
 
+    m_actualPlayerLayout_ = new QHBoxLayout();
+    m_actualPlayerLabel_ = new QLabel("Actual player: ");
+    m_actualPlayerButton_ = new QPushButton();
+    m_actualPlayerButton_->setEnabled(false);
+    m_actualPlayerButton_->setFixedSize(50, 50);
+    m_actualPlayerButton_->setStyleSheet("background-color: red");
+    m_actualPlayerLayout_->addWidget(m_actualPlayerLabel_);
+    m_actualPlayerLayout_->addWidget(m_actualPlayerButton_);
+
     m_tablePushButtonsLayout_ = new QGridLayout();
     m_tablePushButtonsLayout_->setContentsMargins(0, 0, 0, 0);
     m_tablePushButtonsLayout_->setSpacing(0);
@@ -26,6 +35,7 @@ BlackHoleView::BlackHoleView(QWidget *parent)
             this, SLOT(sizeButtonClicked()));
 
     m_mainLayout_ = new QVBoxLayout();
+    m_mainLayout_->addLayout(m_actualPlayerLayout_);
     m_mainLayout_->addLayout(m_tablePushButtonsLayout_);
     m_mainLayout_->addLayout(m_sizePushButtonsLayout_);
 

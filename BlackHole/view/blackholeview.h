@@ -10,6 +10,7 @@
 #include <QVector>
 #include <QPushButton>
 #include <QString>
+#include <QLabel>
 
 class BlackHoleView : public QWidget
 {
@@ -23,6 +24,9 @@ private:
     BlackHoleModel m_blackHoleGameModel_;
 
     QVBoxLayout* m_mainLayout_;
+    QHBoxLayout* m_actualPlayerLayout_;
+    QLabel* m_actualPlayerLabel_;
+    QPushButton* m_actualPlayerButton_;
     QGridLayout* m_tablePushButtonsLayout_;
     QVector<QVector<QPushButton*>> m_tablePushButtons_;
     QHBoxLayout* m_sizePushButtonsLayout_;

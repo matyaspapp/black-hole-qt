@@ -8,6 +8,7 @@ class BlackHoleModel : public QWidget
 {
     Q_OBJECT
 public:
+
     BlackHoleModel(QWidget *parent = nullptr);
     ~BlackHoleModel();
     int getTableSize();
