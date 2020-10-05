@@ -6,6 +6,8 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     setWindowTitle("Black Hole");
     setFixedSize(sizeHint());
 
+    m_markedTableButton_ = nullptr;
+
     m_actualPlayerLayout_ = new QHBoxLayout();
     m_actualPlayerLabel_ = new QLabel("Actual player: ");
     m_actualPlayerButton_ = new QPushButton();
@@ -79,18 +81,30 @@ void BlackHoleView::initTable()
             m_tablePushButtons_[i][j]->setFixedSize(50, 50);
             m_tablePushButtons_[i][j]->setEnabled(false);
             m_tablePushButtonsLayout_->addWidget(m_tablePushButtons_[i][j], i, j);
+
+            connect(m_tablePushButtons_[i][j], SIGNAL(clicked()),
+                    this, SLOT(tableButtonClicked()));
         }
     }
 }
 
 void BlackHoleView::refreshTable()
 {
+    int l_actualPlayer = m_blackHoleGameModel_.getActualPlayerValue();
     int l_tableSize = m_blackHoleGameModel_.getTableSize();
     for (int i = 0; i < l_tableSize; ++i)
     {
         for (int j = 0; j < l_tableSize; ++j)
         {
             int l_actTableValue = m_blackHoleGameModel_.getTableValue(i, j);
+            if(l_actualPlayer == l_actTableValue)
+            {
+                m_tablePushButtons_[i][j]->setEnabled(true);
+            }
+            else
+            {
+                m_tablePushButtons_[i][j]->setEnabled(false);
+            }
             QString l_color = "";
             switch(l_actTableValue)
             {
@@ -127,4 +141,35 @@ void BlackHoleView::sizeButtonClicked()
         l_tableSize = 9;
     }
     newGame(l_tableSize);
+}
+
+void BlackHoleView::tableButtonClicked()
+{
+    QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
+    markTableButton(l_senderButton);
+}
+
+void BlackHoleView::markTableButton(QPushButton* f_senderButton)
+{
+    int l_player = m_blackHoleGameModel_.getActualPlayerValue();
+    QString l_color = l_player == 1
+                    ? "red"
+                    : "blue";
+    if (nullptr != m_markedTableButton_)
+    {
+        m_markedTableButton_->setStyleSheet("background-color: " + l_color);
+    }
+
+    if (f_senderButton == m_markedTableButton_)
+    {
+        m_markedTableButton_ = nullptr;
+    }
+    else
+    {
+        m_markedTableButton_ = f_senderButton;
+        m_markedTableButton_->setStyleSheet("background-color: " + l_color + ";"
+                                            "border-style: outset;"
+                                            "border-width: 2px;"
+                                            "border-color: black;");
+    }
 }

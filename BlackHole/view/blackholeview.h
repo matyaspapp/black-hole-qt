@@ -23,6 +23,8 @@ public:
 private:
     BlackHoleModel m_blackHoleGameModel_;
 
+    QPushButton* m_markedTableButton_;
+
     QVBoxLayout* m_mainLayout_;
     QHBoxLayout* m_actualPlayerLayout_;
     QLabel* m_actualPlayerLabel_;
@@ -38,7 +40,10 @@ private:
     void initTable();
     void refreshTable();
 
+    void markTableButton(QPushButton*);
+
 private slots:
     void sizeButtonClicked();
+    void tableButtonClicked();
 };
 #endif // BLACKHOLEVIEW_H
