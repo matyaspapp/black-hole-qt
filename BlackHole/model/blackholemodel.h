@@ -18,7 +18,7 @@ private:
     int m_tableSize_;
     QVector<QVector<int>> m_table_;
 
-    void initTable(int);
+    void initTable();
 };
 
 #endif // BLACKHOLEMODEL_H
