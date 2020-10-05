@@ -12,7 +12,7 @@ public:
     ~BlackHoleModel();
     int getTableSize();
     int getTableValue(int, int);
-    int getActualPlayer();
+    int getActualPlayerValue();
 
     void newGame(int);
 private:
