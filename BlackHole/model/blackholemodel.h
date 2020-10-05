@@ -12,6 +12,8 @@ public:
     ~BlackHoleModel();
     int getTableSize();
     int getTableValue(int, int);
+
+    void newGame(int);
 private:
     int m_tableSize_;
     QVector<QVector<int>> m_table_;

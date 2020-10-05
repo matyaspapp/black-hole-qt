@@ -41,3 +41,9 @@ int BlackHoleModel::getTableValue(int f_xCoord, int f_yCoord)
 {
     return m_table_[f_xCoord][f_yCoord];
 }
+
+void BlackHoleModel::newGame(int f_tableSize)
+{
+    m_tableSize_ = f_tableSize;
+    initTable(f_tableSize);
+}
