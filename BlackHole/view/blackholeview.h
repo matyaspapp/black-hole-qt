@@ -30,8 +30,11 @@ private:
     QPushButton* m_sizePushButton7_;
     QPushButton* m_sizePushButton9_;
 
-    void newGame();
+    void newGame(int);
     void initTable();
     void refreshTable();
+
+private slots:
+    void sizeButtonClicked();
 };
 #endif // BLACKHOLEVIEW_H
