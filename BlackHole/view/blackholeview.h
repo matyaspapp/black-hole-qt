@@ -1,6 +1,8 @@
 #ifndef BLACKHOLEVIEW_H
 #define BLACKHOLEVIEW_H
 
+#include "../model/blackholemodel.h"
+
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -18,6 +20,8 @@ public:
     ~BlackHoleView();
 
 private:
+    BlackHoleModel m_blackHoleGameModel_;
+
     QVBoxLayout* m_mainLayout_;
     QGridLayout* m_tablePushButtonsLayout_;
     QVector<QVector<QPushButton*>> m_tablePushButtons_;

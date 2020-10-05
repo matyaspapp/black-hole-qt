@@ -48,7 +48,7 @@ void BlackHoleView::initTable()
         l_row.clear();
     }
 
-    int l_tableSize = 5;
+    int l_tableSize = m_blackHoleGameModel_.getTableSize();
     m_tablePushButtons_.resize(l_tableSize);
     for (int i = 0; i < l_tableSize; ++i)
     {
@@ -65,12 +65,12 @@ void BlackHoleView::initTable()
 
 void BlackHoleView::refreshTable()
 {
-    int l_tableSize = 5;
+    int l_tableSize = m_blackHoleGameModel_.getTableSize();
     for (int i = 0; i < l_tableSize; ++i)
     {
         for (int j = 0; j < l_tableSize; ++j)
         {
-            int l_actTableValue = 0;
+            int l_actTableValue = m_blackHoleGameModel_.getTableValue(i, j);
             QString l_color = "";
             switch(l_actTableValue)
             {

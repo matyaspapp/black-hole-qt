@@ -10,6 +10,8 @@ class BlackHoleModel : public QWidget
 public:
     BlackHoleModel(QWidget *parent = nullptr);
     ~BlackHoleModel();
+    int getTableSize();
+    int getTableValue(int, int);
 private:
     int m_tableSize_;
     QVector<QVector<int>> m_table_;

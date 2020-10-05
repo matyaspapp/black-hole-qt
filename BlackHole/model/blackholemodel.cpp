@@ -16,19 +16,28 @@ void BlackHoleModel::initTable(int f_tableSize)
     m_table_.resize(f_tableSize);
     for (int i = 0; i < f_tableSize; ++i)
     {
+        m_table_[i].resize(f_tableSize);
         for (int j = 0; j < f_tableSize; ++j)
         {
             m_table_[i][j] = 0;
         }
     }
-    int l_diagonalRow = 0;
-    int l_diagonalCol = 0;
-    for (int i = 0; i < f_tableSize; ++i)
+    for (int l_diagonalIdx = 0; l_diagonalIdx < f_tableSize; ++l_diagonalIdx)
     {
-        bool l_isTopHalf = l_diagonalRow <= f_tableSize / 2;
+        bool l_isTopHalf = l_diagonalIdx <= f_tableSize / 2;
         int l_player = l_isTopHalf ? 1 : 2;
-        m_table_[l_diagonalRow][l_diagonalCol] = l_player;
-        m_table_[l_diagonalRow][l_diagonalCol + f_tableSize - 1 - l_diagonalRow] = l_player;
+        m_table_[l_diagonalIdx][l_diagonalIdx] = l_player;
+        m_table_[l_diagonalIdx][f_tableSize - 1 - l_diagonalIdx] = l_player;
     }
     m_table_[f_tableSize / 2][f_tableSize / 2] = 42;
+}
+
+int BlackHoleModel::getTableSize()
+{
+    return m_tableSize_;
+}
+
+int BlackHoleModel::getTableValue(int f_xCoord, int f_yCoord)
+{
+    return m_table_[f_xCoord][f_yCoord];
 }
