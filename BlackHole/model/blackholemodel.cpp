@@ -3,6 +3,7 @@
 BlackHoleModel::BlackHoleModel(QWidget *parent)
     : QWidget(parent)
 {
+    m_isFirstPlayerMove_ = true;
     m_tableSize_ = 5;
     newGame(m_tableSize_);
 }
@@ -40,6 +41,11 @@ int BlackHoleModel::getTableSize()
 int BlackHoleModel::getTableValue(int f_xCoord, int f_yCoord)
 {
     return m_table_[f_xCoord][f_yCoord];
+}
+
+int BlackHoleModel::getActualPlayerValue()
+{
+    return m_isFirstPlayerMove_ ? 1 : 2;
 }
 
 void BlackHoleModel::newGame(int f_tableSize)

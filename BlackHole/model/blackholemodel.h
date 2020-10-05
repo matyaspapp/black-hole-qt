@@ -12,9 +12,12 @@ public:
     ~BlackHoleModel();
     int getTableSize();
     int getTableValue(int, int);
+    int getActualPlayer();
 
     void newGame(int);
 private:
+    bool m_isFirstPlayerMove_;
+
     int m_tableSize_;
     QVector<QVector<int>> m_table_;
 
