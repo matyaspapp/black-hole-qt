@@ -13,7 +13,6 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     m_actualPlayerButton_ = new QPushButton();
     m_actualPlayerButton_->setEnabled(false);
     m_actualPlayerButton_->setFixedSize(50, 50);
-    m_actualPlayerButton_->setStyleSheet("background-color: red");
     m_actualPlayerLayout_->addWidget(m_actualPlayerLabel_);
     m_actualPlayerLayout_->addWidget(m_actualPlayerButton_);
 
@@ -54,6 +53,7 @@ BlackHoleView::~BlackHoleView()
 void BlackHoleView::newGame(int f_tableSize)
 {
     m_blackHoleGameModel_.newGame(f_tableSize);
+    refreshActualPlayer();
     initTable();
     refreshTable();
 }
@@ -123,6 +123,15 @@ void BlackHoleView::refreshTable()
     }
 }
 
+void BlackHoleView::refreshActualPlayer()
+{
+    int l_actualPlayer = m_blackHoleGameModel_.getActualPlayerValue();
+    QString l_color = 1 == l_actualPlayer
+                    ? "red"
+                    : "blue";
+    m_actualPlayerButton_->setStyleSheet("background-color: " + l_color);
+}
+
 void BlackHoleView::sizeButtonClicked()
 {
     QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
@@ -172,4 +181,34 @@ void BlackHoleView::markTableButton(QPushButton* f_senderButton)
                                             "border-width: 2px;"
                                             "border-color: black;");
     }
+}
+
+void BlackHoleView::keyPressEvent(QKeyEvent* f_event)
+{
+    if (nullptr == m_markedTableButton_)
+    {
+        return;
+    }
+
+    int l_location = m_tablePushButtonsLayout_->indexOf(m_markedTableButton_);
+    int l_tableSize = m_blackHoleGameModel_.getTableSize();
+    int l_xCoord = l_location / l_tableSize;
+    int l_yCoord = l_location % l_tableSize;
+    switch(f_event->key())
+    {
+    case Qt::Key_W:
+        m_blackHoleGameModel_.makeTurn(l_xCoord, l_yCoord, -1, 0);
+        break;
+    case Qt::Key_S:
+        m_blackHoleGameModel_.makeTurn(l_xCoord, l_yCoord, 1, 0);
+        break;
+    case Qt::Key_A:
+        m_blackHoleGameModel_.makeTurn(l_xCoord, l_yCoord, 0, -1);
+        break;
+    case Qt::Key_D:
+        m_blackHoleGameModel_.makeTurn(l_xCoord, l_yCoord, 0, 1);
+        break;
+    }
+    m_markedTableButton_ = nullptr;
+    refreshTable();
 }

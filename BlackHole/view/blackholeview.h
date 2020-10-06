@@ -11,6 +11,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
+#include <QKeyEvent>
 
 class BlackHoleView : public QWidget
 {
@@ -19,6 +20,9 @@ class BlackHoleView : public QWidget
 public:
     BlackHoleView(QWidget *parent = nullptr);
     ~BlackHoleView();
+
+protected:
+    void keyPressEvent(QKeyEvent*);
 
 private:
     BlackHoleModel m_blackHoleGameModel_;
@@ -39,6 +43,7 @@ private:
     void newGame(int);
     void initTable();
     void refreshTable();
+    void refreshActualPlayer();
 
     void markTableButton(QPushButton*);
 
