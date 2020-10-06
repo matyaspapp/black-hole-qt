@@ -26,6 +26,7 @@ public:
     int getActualPlayerValue();
 
     void newGame(int);
+    void makeTurn(int, int, int, int);
 private:
     bool m_isFirstPlayerMove_;
 
@@ -37,6 +38,8 @@ private:
 
     void initTable();
     int getAliveShipsNum();
+    bool isValidField(int, int);
+    bool isValidMove(int, int);
 };
 
 #endif // BLACKHOLEMODEL_H

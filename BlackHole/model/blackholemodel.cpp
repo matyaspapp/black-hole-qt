@@ -33,6 +33,59 @@ void BlackHoleModel::newGame(int f_tableSize)
     initTable();
 }
 
+void BlackHoleModel::makeTurn(int f_xCoord, int f_yCoord, int f_dx, int f_dy)
+{
+    Ship* l_ship = nullptr;
+    if (true == m_isFirstPlayerMove_)
+    {
+        for (Ship* l_actualShip : m_playerOneShips_)
+        {
+            if (l_actualShip->xCoord == f_xCoord && l_actualShip->yCoord == f_yCoord)
+            {
+                l_ship = l_actualShip;
+            }
+        }
+    }
+    else
+    {
+        for (Ship* l_actualShip : m_playerTwoShips_)
+        {
+            if (l_actualShip->xCoord == f_xCoord && l_actualShip->yCoord == f_yCoord)
+            {
+                l_ship = l_actualShip;
+            }
+        }
+    }
+    if (nullptr == l_ship)
+    {
+        return;
+    }
+
+    int l_xMoveCoord = f_xCoord;
+    int l_yMoveCoord = f_yCoord;
+    while(true == isValidMove(l_xMoveCoord+f_dx, l_yMoveCoord+f_dy))
+    {
+        l_xMoveCoord += f_dx;
+        l_yMoveCoord += f_dy;
+    }
+
+    m_table_[f_xCoord][f_yCoord] = 0;
+    bool l_isNextToBlackHole = isValidField(l_xMoveCoord+f_dx, l_yMoveCoord+f_dy)
+                               && 42 == m_table_[l_xMoveCoord+f_dx][l_yMoveCoord+f_dy];
+    if (true == l_isNextToBlackHole)
+    {
+        l_ship->isAlive = false;
+    }
+    else
+    {
+        l_ship->xCoord = l_xMoveCoord;
+        l_ship->yCoord = l_yMoveCoord;
+        m_table_[l_xMoveCoord][l_yMoveCoord] = m_isFirstPlayerMove_
+                                             ? 1
+                                             : 2;
+    }
+}
+
 // private
 void BlackHoleModel::initTable()
 {
@@ -90,4 +143,16 @@ int BlackHoleModel::getAliveShipsNum()
     }
 
     return l_shipCounter;
+}
+
+bool BlackHoleModel::isValidField(int f_xCoord, int f_yCoord)
+{
+    return 0 <= f_xCoord && f_xCoord < m_tableSize_
+        && 0 <= f_yCoord && f_yCoord < m_tableSize_;
+}
+
+bool BlackHoleModel::isValidMove(int f_xNeighbour, int f_yNeighbour)
+{
+    return isValidField(f_xNeighbour, f_yNeighbour)
+        && m_table_[f_xNeighbour][f_yNeighbour] == 0;
 }
