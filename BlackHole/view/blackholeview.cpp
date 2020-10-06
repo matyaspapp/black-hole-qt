@@ -210,5 +210,6 @@ void BlackHoleView::keyPressEvent(QKeyEvent* f_event)
         break;
     }
     m_markedTableButton_ = nullptr;
+    refreshActualPlayer();
     refreshTable();
 }

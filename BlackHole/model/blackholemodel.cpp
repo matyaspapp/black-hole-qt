@@ -29,6 +29,7 @@ int BlackHoleModel::getActualPlayerValue()
 
 void BlackHoleModel::newGame(int f_tableSize)
 {
+    m_isFirstPlayerMove_ = true;
     m_tableSize_ = f_tableSize;
     initTable();
 }
@@ -84,6 +85,8 @@ void BlackHoleModel::makeTurn(int f_xCoord, int f_yCoord, int f_dx, int f_dy)
                                              ? 1
                                              : 2;
     }
+
+    m_isFirstPlayerMove_ = !m_isFirstPlayerMove_;
 }
 
 // private
