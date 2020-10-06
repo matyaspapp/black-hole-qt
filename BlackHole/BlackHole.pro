@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     view/blackholeview.cpp \
-    model/blackholemodel.cpp
+    model/blackholemodel.cpp \
+    data/savegame.cpp
 
 HEADERS += \
     view/blackholeview.h \
-    model/blackholemodel.h
+    model/blackholemodel.h \
+    data/savegame.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

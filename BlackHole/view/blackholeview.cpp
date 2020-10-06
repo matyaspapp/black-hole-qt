@@ -6,6 +6,8 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     setWindowTitle("Black Hole");
     setFixedSize(sizeHint());
 
+    m_saveGame_ = nullptr;
+
     m_markedTableButton_ = nullptr;
 
     m_actualPlayerLayout_ = new QHBoxLayout();
@@ -51,6 +53,7 @@ BlackHoleView::BlackHoleView(QWidget *parent)
 
 BlackHoleView::~BlackHoleView()
 {
+    if (nullptr != m_saveGame_) delete m_saveGame_;
 }
 
 void BlackHoleView::newGame(int f_tableSize)

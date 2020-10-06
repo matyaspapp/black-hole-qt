@@ -2,6 +2,7 @@
 #define BLACKHOLEVIEW_H
 
 #include "../model/blackholemodel.h"
+#include "../data/savegame.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -27,6 +28,7 @@ protected:
 
 private:
     BlackHoleModel m_blackHoleGameModel_;
+    SaveGame* m_saveGame_;
 
     QPushButton* m_markedTableButton_;
 
