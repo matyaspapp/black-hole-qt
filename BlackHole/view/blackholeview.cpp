@@ -12,7 +12,7 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     m_actualPlayerLabel_ = new QLabel("Actual player: ");
     m_actualPlayerButton_ = new QPushButton();
     m_actualPlayerButton_->setEnabled(false);
-    m_actualPlayerButton_->setFixedSize(50, 50);
+    m_actualPlayerButton_->setFixedSize(20, 20);
     m_actualPlayerLayout_->addWidget(m_actualPlayerLabel_);
     m_actualPlayerLayout_->addWidget(m_actualPlayerButton_);
 
