@@ -42,6 +42,9 @@ BlackHoleView::BlackHoleView(QWidget *parent)
 
     setLayout(m_mainLayout_);
 
+    connect(&m_blackHoleGameModel_, SIGNAL(gameOver(int)),
+            this, SLOT(gameOver(int)));
+
     int l_tableSize = m_blackHoleGameModel_.getTableSize();
     newGame(l_tableSize);
 }
@@ -132,32 +135,6 @@ void BlackHoleView::refreshActualPlayer()
     m_actualPlayerButton_->setStyleSheet("background-color: " + l_color);
 }
 
-void BlackHoleView::sizeButtonClicked()
-{
-    QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
-    QString l_sizeButtonText = l_senderButton->text();
-    int l_tableSize = 0;
-    if ("5x5" == l_sizeButtonText)
-    {
-        l_tableSize = 5;
-    }
-    else if ("7x7" == l_sizeButtonText)
-    {
-        l_tableSize = 7;
-    }
-    else if ("9x9" == l_sizeButtonText)
-    {
-        l_tableSize = 9;
-    }
-    newGame(l_tableSize);
-}
-
-void BlackHoleView::tableButtonClicked()
-{
-    QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
-    markTableButton(l_senderButton);
-}
-
 void BlackHoleView::markTableButton(QPushButton* f_senderButton)
 {
     int l_player = m_blackHoleGameModel_.getActualPlayerValue();
@@ -212,4 +189,42 @@ void BlackHoleView::keyPressEvent(QKeyEvent* f_event)
     m_markedTableButton_ = nullptr;
     refreshActualPlayer();
     refreshTable();
+}
+
+// slot
+void BlackHoleView::sizeButtonClicked()
+{
+    QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
+    QString l_sizeButtonText = l_senderButton->text();
+    int l_tableSize = 0;
+    if ("5x5" == l_sizeButtonText)
+    {
+        l_tableSize = 5;
+    }
+    else if ("7x7" == l_sizeButtonText)
+    {
+        l_tableSize = 7;
+    }
+    else if ("9x9" == l_sizeButtonText)
+    {
+        l_tableSize = 9;
+    }
+    newGame(l_tableSize);
+}
+
+void BlackHoleView::tableButtonClicked()
+{
+    QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
+    markTableButton(l_senderButton);
+}
+
+void BlackHoleView::gameOver(int f_player)
+{
+    QString l_color = 1 == f_player
+                    ? "RED"
+                    : "BLUE";
+    QString l_message = "The winner player is: " + l_color;
+    int l_prevTableSize = m_blackHoleGameModel_.getTableSize();
+    QMessageBox::information(this, QString("Game Over"), l_message);
+    newGame(l_prevTableSize);
 }

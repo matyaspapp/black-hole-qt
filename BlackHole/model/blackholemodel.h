@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVector>
+#include <QDebug>
 
 class BlackHoleModel : public QWidget
 {
@@ -41,6 +42,10 @@ private:
     bool isValidField(int, int);
     bool isValidMove(int, int);
     Ship* getActualShip(int, int);
+    bool isGameOver();
+
+signals:
+    void gameOver(int);
 };
 
 #endif // BLACKHOLEMODEL_H

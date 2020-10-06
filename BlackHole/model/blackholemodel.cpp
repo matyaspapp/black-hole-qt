@@ -31,6 +31,10 @@ void BlackHoleModel::newGame(int f_tableSize)
 {
     m_isFirstPlayerMove_ = true;
     m_tableSize_ = f_tableSize;
+    m_playerOneShips_.resize(0);
+    m_playerOneShips_.clear();
+    m_playerTwoShips_.resize(0);
+    m_playerTwoShips_.clear();
     initTable();
 }
 
@@ -66,7 +70,17 @@ void BlackHoleModel::makeTurn(int f_xCoord, int f_yCoord, int f_dx, int f_dy)
                                              : 2;
     }
 
-    m_isFirstPlayerMove_ = !m_isFirstPlayerMove_;
+    if (true == isGameOver())
+    {
+        int l_player = m_isFirstPlayerMove_
+                     ? 1
+                     : 2;
+        Q_EMIT gameOver(l_player);
+    }
+    else
+    {
+        m_isFirstPlayerMove_ = !m_isFirstPlayerMove_;
+    }
 }
 
 // private
@@ -83,6 +97,10 @@ void BlackHoleModel::initTable()
     }
     for (int l_diagonalIdx = 0; l_diagonalIdx < m_tableSize_; ++l_diagonalIdx)
     {
+        if (l_diagonalIdx == m_tableSize_ / 2)
+        {
+            continue;
+        }
         bool l_isTopHalf = l_diagonalIdx <= m_tableSize_ / 2;
         int l_player = l_isTopHalf ? 1 : 2;
         m_table_[l_diagonalIdx][l_diagonalIdx] = l_player;
@@ -165,4 +183,10 @@ BlackHoleModel::Ship* BlackHoleModel::getActualShip(int f_xCoord, int f_yCoord)
     }
 
     return l_ship;
+}
+
+bool BlackHoleModel::isGameOver()
+{
+    int l_playerShipsNum = getAliveShipsNum();
+    return l_playerShipsNum == m_tableSize_ / 2;
 }

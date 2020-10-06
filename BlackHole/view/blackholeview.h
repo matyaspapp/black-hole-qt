@@ -12,6 +12,7 @@
 #include <QString>
 #include <QLabel>
 #include <QKeyEvent>
+#include <QMessageBox>
 
 class BlackHoleView : public QWidget
 {
@@ -50,5 +51,6 @@ private:
 private slots:
     void sizeButtonClicked();
     void tableButtonClicked();
+    void gameOver(int);
 };
 #endif // BLACKHOLEVIEW_H
