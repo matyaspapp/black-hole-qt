@@ -36,27 +36,7 @@ void BlackHoleModel::newGame(int f_tableSize)
 
 void BlackHoleModel::makeTurn(int f_xCoord, int f_yCoord, int f_dx, int f_dy)
 {
-    Ship* l_ship = nullptr;
-    if (true == m_isFirstPlayerMove_)
-    {
-        for (Ship* l_actualShip : m_playerOneShips_)
-        {
-            if (l_actualShip->xCoord == f_xCoord && l_actualShip->yCoord == f_yCoord)
-            {
-                l_ship = l_actualShip;
-            }
-        }
-    }
-    else
-    {
-        for (Ship* l_actualShip : m_playerTwoShips_)
-        {
-            if (l_actualShip->xCoord == f_xCoord && l_actualShip->yCoord == f_yCoord)
-            {
-                l_ship = l_actualShip;
-            }
-        }
-    }
+    Ship* l_ship = getActualShip(f_xCoord, f_yCoord);
     if (nullptr == l_ship)
     {
         return;
@@ -158,4 +138,31 @@ bool BlackHoleModel::isValidMove(int f_xNeighbour, int f_yNeighbour)
 {
     return isValidField(f_xNeighbour, f_yNeighbour)
         && m_table_[f_xNeighbour][f_yNeighbour] == 0;
+}
+
+BlackHoleModel::Ship* BlackHoleModel::getActualShip(int f_xCoord, int f_yCoord)
+{
+    Ship* l_ship = nullptr;
+    if (true == m_isFirstPlayerMove_)
+    {
+        for (Ship* l_actualShip : m_playerOneShips_)
+        {
+            if (l_actualShip->xCoord == f_xCoord && l_actualShip->yCoord == f_yCoord)
+            {
+                l_ship = l_actualShip;
+            }
+        }
+    }
+    else
+    {
+        for (Ship* l_actualShip : m_playerTwoShips_)
+        {
+            if (l_actualShip->xCoord == f_xCoord && l_actualShip->yCoord == f_yCoord)
+            {
+                l_ship = l_actualShip;
+            }
+        }
+    }
+
+    return l_ship;
 }

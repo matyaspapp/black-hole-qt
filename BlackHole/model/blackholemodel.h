@@ -40,6 +40,7 @@ private:
     int getAliveShipsNum();
     bool isValidField(int, int);
     bool isValidMove(int, int);
+    Ship* getActualShip(int, int);
 };
 
 #endif // BLACKHOLEMODEL_H
