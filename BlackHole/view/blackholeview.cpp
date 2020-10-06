@@ -55,6 +55,7 @@ BlackHoleView::~BlackHoleView()
 
 void BlackHoleView::newGame(int f_tableSize)
 {
+    m_markedTableButton_ = nullptr;
     m_blackHoleGameModel_.newGame(f_tableSize);
     refreshActualPlayer();
     initTable();
