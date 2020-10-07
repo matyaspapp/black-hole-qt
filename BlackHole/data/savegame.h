@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QListWidget>
 
+#include <QDebug>
+
 class SaveGame : public QDialog
 {
     Q_OBJECT

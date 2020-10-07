@@ -112,20 +112,24 @@ void BlackHoleView::refreshTable()
             {
                 m_tablePushButtons_[i][j]->setEnabled(false);
             }
-            QString l_color = "";
+            QString l_color = "black";
+            QString l_imagePath = "";
             switch(l_actTableValue)
             {
             case 1:
-                l_color = "red";
+                l_imagePath = ":assets/images/player1.png";
                 break;
             case 2:
-                l_color = "blue";
+                l_imagePath = ":assets/images/player2.png";
                 break;
             case 42:
                 l_color = "black";
                 break;
             }
             m_tablePushButtons_[i][j]->setStyleSheet("background-color: " + l_color);
+            m_tablePushButtons_[i][j]->setIcon(QIcon(l_imagePath));
+            m_tablePushButtons_[i][j]->setIconSize(QSize(50, 50));
+            qDebug() << l_imagePath;
         }
     }
 }
@@ -142,12 +146,13 @@ void BlackHoleView::refreshActualPlayer()
 void BlackHoleView::markTableButton(QPushButton* f_senderButton)
 {
     int l_player = m_blackHoleGameModel_.getActualPlayerValue();
-    QString l_color = l_player == 1
-                    ? "red"
-                    : "blue";
+    QString l_imagepath = l_player == 1
+                        ? ":assets/images/player1"
+                        : ":assets/images/player2";
     if (nullptr != m_markedTableButton_)
     {
-        m_markedTableButton_->setStyleSheet("background-color: " + l_color);
+        m_markedTableButton_->setIcon(QIcon(l_imagepath + ".png"));
+        m_markedTableButton_->setIconSize(QSize(50, 50));
     }
 
     if (f_senderButton == m_markedTableButton_)
@@ -157,10 +162,8 @@ void BlackHoleView::markTableButton(QPushButton* f_senderButton)
     else
     {
         m_markedTableButton_ = f_senderButton;
-        m_markedTableButton_->setStyleSheet("background-color: " + l_color + ";"
-                                            "border-style: outset;"
-                                            "border-width: 2px;"
-                                            "border-color: black;");
+        m_markedTableButton_->setIcon(QIcon(l_imagepath + "_targeted.png"));
+        m_markedTableButton_->setIconSize(QSize(50, 50));
     }
 }
 
