@@ -14,6 +14,7 @@
 #include <QLabel>
 #include <QKeyEvent>
 #include <QMessageBox>
+#include <QMovie>
 
 class BlackHoleView : public QWidget
 {
@@ -43,6 +44,8 @@ private:
     QPushButton* m_sizePushButton7_;
     QPushButton* m_sizePushButton9_;
 
+    QMovie* m_blackHoleButtonMovie_;
+
     void newGame(int);
     void initTable();
     void refreshTable();
@@ -51,6 +54,7 @@ private:
     void markTableButton(QPushButton*);
 
 private slots:
+    void setBlackHoleButtonIcon(int);
     void sizeButtonClicked();
     void tableButtonClicked();
     void gameOver(int);

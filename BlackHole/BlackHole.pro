@@ -12,6 +12,7 @@ RESOURCES += \
     assets/images/player1_targeted.png \
     assets/images/player2.png \
     assets/images/player2_targeted.png \
+    assets/images/black_hole.gif \
 
 SOURCES += \
     main.cpp \

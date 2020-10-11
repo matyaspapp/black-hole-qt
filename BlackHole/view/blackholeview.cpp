@@ -92,6 +92,16 @@ void BlackHoleView::initTable()
                     this, SLOT(tableButtonClicked()));
         }
     }
+    m_tablePushButtons_[l_tableSize/2][l_tableSize/2]->setEnabled(true);
+    m_blackHoleButtonMovie_ = new QMovie(":assets/images/black_hole.gif");
+    connect(m_blackHoleButtonMovie_, SIGNAL(frameChanged(int)),
+            this, SLOT(setBlackHoleButtonIcon(int)));
+    if (m_blackHoleButtonMovie_->loopCount() != -1)
+    {
+        connect(m_blackHoleButtonMovie_, SIGNAL(finished()),
+                m_blackHoleButtonMovie_, SLOT(start()));
+    }
+    m_blackHoleButtonMovie_->start();
 }
 
 void BlackHoleView::refreshTable()
@@ -121,16 +131,13 @@ void BlackHoleView::refreshTable()
             case 2:
                 l_imagePath = ":assets/images/player2.png";
                 break;
-            case 42:
-                l_color = "black";
-                break;
             }
             m_tablePushButtons_[i][j]->setStyleSheet("background-color: " + l_color);
             m_tablePushButtons_[i][j]->setIcon(QIcon(l_imagePath));
             m_tablePushButtons_[i][j]->setIconSize(QSize(50, 50));
-            qDebug() << l_imagePath;
         }
     }
+    m_tablePushButtons_[l_tableSize/2][l_tableSize/2]->setEnabled(true);
 }
 
 void BlackHoleView::refreshActualPlayer()
@@ -199,6 +206,14 @@ void BlackHoleView::keyPressEvent(QKeyEvent* f_event)
 }
 
 // slot
+void BlackHoleView::setBlackHoleButtonIcon(int f_frame)
+{
+    int l_tableSize = m_blackHoleGameModel_.getTableSize();
+    QPushButton* l_blackHoleButton = m_tablePushButtons_[l_tableSize/2][l_tableSize/2];
+    l_blackHoleButton->setIcon(QIcon(m_blackHoleButtonMovie_->currentPixmap()));
+    l_blackHoleButton->setIconSize(QSize(50, 50));
+}
+
 void BlackHoleView::sizeButtonClicked()
 {
     QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
@@ -222,6 +237,11 @@ void BlackHoleView::sizeButtonClicked()
 void BlackHoleView::tableButtonClicked()
 {
     QPushButton* l_senderButton = dynamic_cast<QPushButton*>(sender());
+    int l_tableSize = m_blackHoleGameModel_.getTableSize();
+    if (l_senderButton == m_tablePushButtons_[l_tableSize/2][l_tableSize/2])
+    {
+        return;
+    }
     markTableButton(l_senderButton);
 }
 
