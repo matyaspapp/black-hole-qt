@@ -13,7 +13,6 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     m_actualPlayerLayout_ = new QHBoxLayout();
     m_actualPlayerLabel_ = new QLabel("Actual player: ");
     m_actualPlayerButton_ = new QPushButton();
-    m_actualPlayerButton_->setEnabled(false);
     m_actualPlayerButton_->setFixedSize(20, 20);
     m_actualPlayerLayout_->addWidget(m_actualPlayerLabel_);
     m_actualPlayerLayout_->addWidget(m_actualPlayerButton_);
@@ -137,10 +136,11 @@ void BlackHoleView::refreshTable()
 void BlackHoleView::refreshActualPlayer()
 {
     int l_actualPlayer = m_blackHoleGameModel_.getActualPlayerValue();
-    QString l_color = 1 == l_actualPlayer
-                    ? "red"
-                    : "blue";
-    m_actualPlayerButton_->setStyleSheet("background-color: " + l_color);
+    QString l_imagePath = 1 == l_actualPlayer
+                    ? ":assets/images/player1.png"
+                    : ":assets/images/player2.png";
+    m_actualPlayerButton_->setIcon(QIcon(l_imagePath));
+    m_actualPlayerButton_->setIconSize(QSize(20, 20));
 }
 
 void BlackHoleView::markTableButton(QPushButton* f_senderButton)
@@ -228,8 +228,8 @@ void BlackHoleView::tableButtonClicked()
 void BlackHoleView::gameOver(int f_player)
 {
     QString l_color = 1 == f_player
-                    ? "RED"
-                    : "BLUE";
+                    ? "BLUE"
+                    : "RED";
     QString l_message = "The winner player is: " + l_color;
     int l_prevTableSize = m_blackHoleGameModel_.getTableSize();
     QMessageBox::information(this, QString("Game Over"), l_message);
