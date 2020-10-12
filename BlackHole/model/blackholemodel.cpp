@@ -83,6 +83,27 @@ void BlackHoleModel::makeTurn(int f_xCoord, int f_yCoord, int f_dx, int f_dy)
     }
 }
 
+bool BlackHoleModel::saveGame(int f_gameIndex)
+{
+    QVector<int> l_actualGameData;
+    l_actualGameData.push_back(m_isFirstPlayerMove_);
+    l_actualGameData.push_back(m_tableSize_);
+    for (int i = 0; i < m_tableSize_; ++i)
+    {
+        for (int j = 0; j < m_tableSize_; ++j)
+        {
+            l_actualGameData.push_back(m_table_[i][j]);
+        }
+    }
+
+    return m_dataAccess_.saveGame(f_gameIndex, l_actualGameData);
+}
+
+QVector<QString> BlackHoleModel::getSavedGameList() const
+{
+    return m_dataAccess_.getSavedGameList();
+}
+
 // private
 void BlackHoleModel::initTable()
 {

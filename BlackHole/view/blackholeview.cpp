@@ -36,10 +36,18 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     connect(m_sizePushButton9_, SIGNAL(clicked()),
             this, SLOT(sizeButtonClicked()));
 
+    m_gameStateControlLayout_ = new QHBoxLayout();
+    m_savePushButton_ = new QPushButton("Save game");
+    m_gameStateControlLayout_->addWidget(m_savePushButton_);
+
+    connect(m_savePushButton_, SIGNAL(clicked()),
+            this, SLOT(saveButtonClicked()));
+
     m_mainLayout_ = new QVBoxLayout();
     m_mainLayout_->addLayout(m_actualPlayerLayout_);
     m_mainLayout_->addLayout(m_tablePushButtonsLayout_);
     m_mainLayout_->addLayout(m_sizePushButtonsLayout_);
+    m_mainLayout_->addLayout(m_gameStateControlLayout_);
 
     setLayout(m_mainLayout_);
 
@@ -254,4 +262,29 @@ void BlackHoleView::gameOver(int f_player)
     int l_prevTableSize = m_blackHoleGameModel_.getTableSize();
     QMessageBox::information(this, QString("Game Over"), l_message);
     newGame(l_prevTableSize);
+}
+
+void BlackHoleView::saveButtonClicked()
+{
+    if (nullptr == m_saveGame_)
+    {
+        m_saveGame_ = new SaveGame();
+        connect(m_saveGame_, SIGNAL(accepted()),
+                this, SLOT(saveGame()));
+    }
+    m_saveGame_->setGameList(m_blackHoleGameModel_.getSavedGameList());
+    m_saveGame_->open();
+}
+
+void BlackHoleView::saveGame()
+{
+    if (m_blackHoleGameModel_.saveGame(m_saveGame_->getSelectedGame()))
+    {
+        refreshTable();
+        QMessageBox::information(this, "BlackHole", "Save was successfull!");
+    }
+    else
+    {
+        QMessageBox::warning(this, "BlackHole", "Can't save!");
+    }
 }

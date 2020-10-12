@@ -43,6 +43,9 @@ private:
     QPushButton* m_sizePushButton5_;
     QPushButton* m_sizePushButton7_;
     QPushButton* m_sizePushButton9_;
+    QHBoxLayout* m_gameStateControlLayout_;
+    QPushButton* m_savePushButton_;
+    QPushButton* m_loadPushButton_;
 
     QMovie* m_blackHoleButtonMovie_;
 
@@ -58,5 +61,7 @@ private slots:
     void sizeButtonClicked();
     void tableButtonClicked();
     void gameOver(int);
+    void saveButtonClicked();
+    void saveGame();
 };
 #endif // BLACKHOLEVIEW_H

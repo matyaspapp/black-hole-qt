@@ -18,12 +18,14 @@ SOURCES += \
     main.cpp \
     view/blackholeview.cpp \
     model/blackholemodel.cpp \
-    data/savegame.cpp
+    data/savegame.cpp \
+    data/blackholedataaccess.cpp \
 
 HEADERS += \
     view/blackholeview.h \
     model/blackholemodel.h \
-    data/savegame.h
+    data/savegame.h \
+    data/blackholedataaccess.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

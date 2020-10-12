@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QDebug>
 
+#include "../data/blackholedataaccess.h"
+
 class BlackHoleModel : public QWidget
 {
     Q_OBJECT
@@ -28,6 +30,9 @@ public:
 
     void newGame(int);
     void makeTurn(int, int, int, int);
+
+    bool saveGame(int);
+    QVector<QString> getSavedGameList() const;
 private:
     bool m_isFirstPlayerMove_;
 
@@ -43,6 +48,8 @@ private:
     bool isValidMove(int, int);
     Ship* getActualShip(int, int);
     bool isGameOver();
+
+    BlackHoleDataAccess m_dataAccess_;
 
 signals:
     void gameOver(int);
