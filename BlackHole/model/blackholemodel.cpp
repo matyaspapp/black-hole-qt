@@ -83,6 +83,41 @@ void BlackHoleModel::makeTurn(int f_xCoord, int f_yCoord, int f_dx, int f_dy)
     }
 }
 
+bool BlackHoleModel::loadGame(int f_gameIndex)
+{
+    QVector<int> l_savedGameData;
+    if (!m_dataAccess_.loadGame(f_gameIndex, l_savedGameData))
+    {
+        return false;
+    }
+
+    m_isFirstPlayerMove_ = l_savedGameData[0];
+    m_tableSize_ = l_savedGameData[1];
+    m_playerOneShips_.resize(0);
+    m_playerTwoShips_.resize(0);
+
+    int l_savedDataIndex = 2;
+    m_table_.resize(m_tableSize_);
+    for (int i = 0; i < m_tableSize_; ++i)
+    {
+        m_table_[i].resize(m_tableSize_);
+        for (int j = 0; j < m_tableSize_; ++j)
+        {
+            m_table_[i][j] = l_savedGameData[l_savedDataIndex];
+            if (1 == m_table_[i][j])
+            {
+                m_playerOneShips_.push_back(new Ship(i, j));
+            }
+            else if (2 == m_table_[i][j])
+            {
+                m_playerTwoShips_.push_back(new Ship(i, j));
+            }
+        }
+    }
+
+    return true;
+}
+
 bool BlackHoleModel::saveGame(int f_gameIndex)
 {
     QVector<int> l_actualGameData;

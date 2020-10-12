@@ -19,12 +19,14 @@ SOURCES += \
     view/blackholeview.cpp \
     model/blackholemodel.cpp \
     data/savegame.cpp \
+    data/loadgame.cpp \
     data/blackholedataaccess.cpp \
 
 HEADERS += \
     view/blackholeview.h \
     model/blackholemodel.h \
     data/savegame.h \
+    data/loadgame.h \
     data/blackholedataaccess.h \
 
 # Default rules for deployment.

@@ -31,6 +31,7 @@ public:
     void newGame(int);
     void makeTurn(int, int, int, int);
 
+    bool loadGame(int);
     bool saveGame(int);
     QVector<QString> getSavedGameList() const;
 private:

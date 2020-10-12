@@ -3,6 +3,7 @@
 
 #include "../model/blackholemodel.h"
 #include "../data/savegame.h"
+#include "../data/loadgame.h"
 
 #include <QWidget>
 #include <QVBoxLayout>
@@ -29,6 +30,7 @@ protected:
 
 private:
     BlackHoleModel m_blackHoleGameModel_;
+    LoadGame* m_loadGame_;
     SaveGame* m_saveGame_;
 
     QPushButton* m_markedTableButton_;
@@ -63,5 +65,7 @@ private slots:
     void gameOver(int);
     void saveButtonClicked();
     void saveGame();
+    void loadButtonClicked();
+    void loadGame();
 };
 #endif // BLACKHOLEVIEW_H
