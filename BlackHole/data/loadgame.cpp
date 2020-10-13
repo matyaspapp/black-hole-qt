@@ -5,8 +5,8 @@ LoadGame::LoadGame(QWidget *parent)
     : SaveGame(parent)
 {
     setWindowTitle("Load Game");
-    disconnect(m_okButton_, SIGNAL(clciked()),
-               this, SLOT(okButtonClicked()));
+    disconnect(m_okButton_, SIGNAL(clicked()),
+               this, SLOT(accept()));
     connect(m_okButton_, SIGNAL(clicked()),
             this, SLOT(okButtonClicked()));
 }

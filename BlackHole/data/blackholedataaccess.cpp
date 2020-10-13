@@ -33,7 +33,7 @@ bool BlackHoleDataAccess::saveGame(int f_gameIndex, const QVector<int>& f_saveGa
     int l_dataSize = f_saveGameData.length();
     for (int i = 0; i < l_dataSize; ++i)
     {
-        l_fileStream << f_saveGameData[i] << endl;
+        l_fileStream << f_saveGameData[i] << Qt::endl;
     }
     l_file.close();
 

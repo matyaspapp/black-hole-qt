@@ -14,6 +14,7 @@ class SaveGame : public QDialog
     Q_OBJECT
 public:
     SaveGame(QWidget *parent = 0);
+    virtual ~SaveGame() {}
     void setGameList(QVector<QString> saveGameList);
     int getSelectedGame();
 

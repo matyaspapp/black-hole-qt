@@ -7,6 +7,7 @@ BlackHoleView::BlackHoleView(QWidget *parent)
     setFixedSize(sizeHint());
 
     m_saveGame_ = nullptr;
+    m_loadGame_ = nullptr;
 
     m_markedTableButton_ = nullptr;
 
@@ -310,7 +311,9 @@ void BlackHoleView::loadGame()
 {
     if (m_blackHoleGameModel_.loadGame(m_loadGame_->getSelectedGame()))
     {
+        initTable();
         refreshTable();
+        refreshActualPlayer();
         QMessageBox::information(this, "Black Hole",
                                  QString("Load was successfull, it's ")
                                  + (1 == m_blackHoleGameModel_.getActualPlayerValue() ? "BLUE" : "RED")

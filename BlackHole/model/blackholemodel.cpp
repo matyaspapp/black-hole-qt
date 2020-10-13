@@ -112,6 +112,7 @@ bool BlackHoleModel::loadGame(int f_gameIndex)
             {
                 m_playerTwoShips_.push_back(new Ship(i, j));
             }
+            ++l_savedDataIndex;
         }
     }
 
